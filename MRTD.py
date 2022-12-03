@@ -72,7 +72,11 @@ def check_digit(a,b):
     pass
 
 
+def scan():
+    pass
 
+def data_base():
+    pass
 
 def decode(l1,l2):
     l1c1 = l1.split("<<")
@@ -97,6 +101,24 @@ def decode(l1,l2):
 
     print ("Document Type: "+doc_type+", Country: "+country+ ", First Name: "+first_name+", Middle Name: "+middle_name+", Last Name: "+last_name)
 
+    pn = l2[0:8]
+    cd_pn = l2[9]
+    cc = l2[10:12]
+    bd = l2[13:18]
+    cd_bd = l2[19]
+    sex = l2[20]
+    exp = l2[21:26]
+    cd_exp = l2[27]
+    prn = l2[28:36]
+    cd_prn = l2[:1]
+
+    print("passport_number: "+pn+", country_code: "+cc+", birth_date: "+bd+", sex: "+sex+", expiration_date: "+exp+", personal_number: "+prn)
+
+
+
+
+def mismatch():
+    
     pn = l2[0:8]
     cd_pn = l2[9]
     cc = l2[10:12]
@@ -150,20 +172,8 @@ def encode(dt, c, ln, fn, mn, pn, cc, bd, s, ed, prn):
 
     ln2 = pn+str(get_digit(pn,9))+cc+bd+str(get_digit(bd,6))+s+ed+str(get_digit(ed,6))+prn+end2+str(get_digit(prn,9))
 
-    return ln1,ln2
-
-
-    
-
-
-
-
- 
-        
-        
-
-
-    
+    #return ln1,ln2
+    return (ln1+";"+ln2)
 
 
 decode(l1,l2)

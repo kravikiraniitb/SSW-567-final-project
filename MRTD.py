@@ -1,3 +1,4 @@
+import json
 
 letters = {
     "A":10,
@@ -78,7 +79,6 @@ def check_digit(a,b):
 
     else:
         return False
-    pass
 
 
 def scan():
@@ -114,7 +114,7 @@ def decode(record):
     else:
         middle_name = l1c3[1]
 
-    print ("Document Type: "+doc_type+", Country: "+country+ ", First Name: "+first_name+", Middle Name: "+middle_name+", Last Name: "+last_name)
+    #print ("Document Type: "+doc_type+", Country: "+country+ ", First Name: "+first_name+", Middle Name: "+middle_name+", Last Name: "+last_name)
 
     pn = l2[0:9]
     cd_pn = l2[9]
@@ -131,9 +131,30 @@ def decode(record):
     #cd_prn = l2[:1]
     cd_prn = l2_last[-1]
 
-    print("passport_number: "+pn+", country_code: "+cc+", birth_date: "+bd+", sex: "+sex+", expiration_date: "+exp+", personal_number: "+prn)
-    print("CD PN: "+cd_pn+" CD BD: "+cd_bd+ " CD EXP: "+cd_exp+" CD PRN: "+str(cd_prn))
+    #print("passport_number: "+pn+", country_code: "+cc+", birth_date: "+bd+", sex: "+sex+", expiration_date: "+exp+", personal_number: "+prn)
+    #print("CD PN: "+cd_pn+" CD BD: "+cd_bd+ " CD EXP: "+cd_exp+" CD PRN: "+str(cd_prn))
 
+    if middle_name =="":
+        given_name = first_name
+    else:
+        given_name = first_name+" "+ middle_name
+
+    decode_output = {
+            "line1": {
+                "issuing_country": country,
+                "last_name": last_name,
+                "given_name": given_name
+            },
+            "line2": {
+                "passport_number": pn,
+                "country_code": cc,
+                "birth_date": bd,
+                "sex": sex,
+                "expiration_date": exp,
+                "personal_number": prn
+            }
+        }
+    return decode_output
 
 
 def mismatch(record):
@@ -155,21 +176,26 @@ def mismatch(record):
 
     if check_digit(pn,cd_pn) and check_digit(bd,cd_bd) and check_digit(exp,cd_exp) and check_digit(prn,cd_prn):
 
-        print("Check digits have matched")
+        #print("Check digits have matched")
+        return "Check digits have matched"
         
     else:
-        print("Check digits did NOT match")
+        #print("Check digits did NOT match")
         if not check_digit(pn,cd_pn):
-            print("Passport number and its check digits did NOT match")
+            #print("Passport number and its check digits did NOT match")
+            return "Passport number and its check digits did NOT match"
 
         if not check_digit(bd,cd_bd):
-            print("Birth date and its check digits did NOT match")
+            #print("Birth date and its check digits did NOT match")
+            return "Birth date and its check digits did NOT match"
 
         if not check_digit(exp,cd_exp):
-            print("Expiration date and its check digits did NOT match")
+            #print("Expiration date and its check digits did NOT match")
+            return "Expiration date and its check digits did NOT match"
 
         if not check_digit(prn,cd_prn):
-            print("Personal number and its check digits did NOT match")
+            #print("Personal number and its check digits did NOT match")
+            return "Personal number and its check digits did NOT match"
         
 
 
@@ -219,12 +245,13 @@ def encode(decoded_array):
     ln2 = pn+str(get_digit(pn))+cc+bd+str(get_digit(bd))+s+ed+str(get_digit(ed))+prn+end2+str(get_digit(prn))
 
     #return ln1,ln2
-    print(ln1+";"+ln2)
+    #print(ln1+";"+ln2)
     return (ln1+";"+ln2)
+    #return (ln1,ln2)
 
 
-decode(record)
-mismatch(record)
+print(decode(record))
+print(mismatch(record))
 
 decoded_array = {
             "line1": {
@@ -243,7 +270,7 @@ decoded_array = {
         }
 
 
-encode(decoded_array)
+print(encode(decoded_array))
 
 
 #P<CIVLYNN<<NEVEAH<BRAM<<<<<<<<<<<<<<<<<<<<<<;W620126G54CIV5910106F9707302AJ010215I<<<<<<6

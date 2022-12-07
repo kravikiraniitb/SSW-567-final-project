@@ -83,8 +83,31 @@ class TestMRTD(unittest.TestCase):
 
         self.assertEqual(encode(decoded_array),"P<ABWMALDONADO<<CAMILLA<<<<<<<<<<<<<<<<<<<<<;V008493B64ABW7809095M0909088QZ181922T<<<<<<5","Test 3")
 
-
-
+    #wrong passport check digit
+    def testMRTD6(self): 
+        #P<AZESMITH<<ARTHUR<JOHN<<<<<<<<<<<<<<<<<<<<<<;B979608C3 7 AZE640825 0 M120706 2 GH865886H<<<<<<7
+        record = "P<AZESMITH<<ARTHUR<JOHN<<<<<<<<<<<<<<<<<<<<<<;B979608C38AZE6408251M1207068GH865886H<<<<<<7"
+        self.assertEqual(mismatch(record),"Passport number and its check digits did NOT match","Test 6") 
+        
+    #wrong birth date check digit
+    def testMRTD7(self): 
+        record = "P<AZESMITH<<ARTHUR<JOHN<<<<<<<<<<<<<<<<<<<<<<;B979608C37AZE6408258M1207068GH865886H<<<<<<7"
+        self.assertEqual(mismatch(record),"Birth date and its check digits did NOT match","Test 7") 
+        
+    #wrong expiration date check digit
+    def testMRTD8(self): 
+        record = "P<AZESMITH<<ARTHUR<JOHN<<<<<<<<<<<<<<<<<<<<<<;B979608C37AZE6408251M1207069GH865886H<<<<<<7"
+        self.assertEqual(mismatch(record),"Expiration date and its check digits did NOT match","Test 8") 
+        
+    #wrong personal number check digit
+    def testMRTD9(self): 
+        record = "P<AZESMITH<<ARTHUR<JOHN<<<<<<<<<<<<<<<<<<<<<<;B979608C37AZE6408251M1207068GH865886H<<<<<<1"
+        self.assertEqual(mismatch(record),"Personal number and its check digits did NOT match","Test 9") 
+        
+    #wrong personal number check digit
+    def testMRTD10(self): 
+        record = "P<AZESMITH<<ARTHUR<JOHN<<<<<<<<<<<<<<<<<<<<<<;B979608C37AZE6408251M1207068GH865886H<<<<<<7"
+        self.assertEqual(decode(record),{'line1': {'issuing_country': 'AZE', 'last_name': 'SMITH', 'given_name': 'ARTHUR JOHN'}, 'line2': {'passport_number': 'B979608C3', 'country_code': 'AZE', 'birth_date': '640825', 'sex': 'M', 'expiration_date': '120706', 'personal_number': 'GH865886H'}},"Test 10")
 
 
    # def testMRTD4(self): 

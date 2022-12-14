@@ -38,8 +38,7 @@ letters = {
 #l1 = "P<CIVLYNN<<NEVEAH<BRAM<<<<<<<<<<<<<<<<<<<<<<"
 #l2 = "W620126G54CIV5910106F9707302AJ010215I<<<<<<6"
 
-# record = "P<CIVLYNN<<NEVEAH<BRAM<<<<<<<<<<<<<<<<<<<<<<;W620126G54CIV5910106F9707302AJ010215I<<<<<<6"
-record ="P<AZESMITH<<ARTHUR<JOHN<<<<<<<<<<<<<<<<<<<<<<;B979608C37AZE6408251M1207068GH865886H<<<<<<7"
+record = "P<CIVLYNN<<NEVEAH<BRAM<<<<<<<<<<<<<<<<<<<<<<;W620126G54CIV5910106F9707302AJ010215I<<<<<<6"
 
 
 
@@ -72,7 +71,7 @@ def get_digit(string):
             sum = sum + prod2
    #print(sum%10)
     return sum%10
-# print(get_digit("B979608C3"))
+
 
 def check_digit(a,b):
     if int(b) == get_digit(a):
@@ -87,6 +86,8 @@ def scan():
 
 def data_base():
     pass
+
+#the above function outputs can be passed as inputs to the below functions(decode, encode, mismatch)
 
 def decode(record):
     l1 = record.split(";")[0]
@@ -118,13 +119,13 @@ def decode(record):
     #print ("Document Type: "+doc_type+", Country: "+country+ ", First Name: "+first_name+", Middle Name: "+middle_name+", Last Name: "+last_name)
 
     pn = l2[0:9]
-    # cd_pn = l2[9]
+    cd_pn = l2[9]
     cc = l2[10:13]
     bd = l2[13:19]
-    # cd_bd = l2[19]
+    cd_bd = l2[19]
     sex = l2[20]
     exp = l2[21:27]
-    # cd_exp = l2[27]
+    cd_exp = l2[27]
     prn = l2[28:37]
 
     #cd_prn = l2[:1]
